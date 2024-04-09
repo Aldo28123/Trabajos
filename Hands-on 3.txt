@@ -1,0 +1,97 @@
+(defrule diagnosticar-gripe
+    (signo ?s1)
+    (signo ?s2)
+    (sintoma ?st1)
+    (sintoma ?st2)
+    (test (member$ ?s1 (create$ fiebre)))
+    (test (member$ ?s2 (create$ fatiga)))
+    (test (member$ ?st1 (create$ escalofrios)))
+    (test (member$ ?st2 (create$ tos)))
+    =>
+    (printout t "El paciente podría tener gripe." crlf)
+)
+
+(defrule diagnosticar-alergia
+    (signo ?s1)
+    (signo ?s2)
+    (sintoma ?st1)
+    (sintoma ?st2)
+    (test (member$ ?s1 (create$ congestion_nasal)))
+    (test (member$ ?s2 (create$ estornudos)))
+    (test (member$ ?st1 (create$ dificultad_respiratoria)))
+    (test (member$ ?st2 (create$ enrojecimiento_ocular)))
+    =>
+    (printout t "El paciente podría tener alergia." crlf)
+)
+
+(defrule diagnosticar-faringitis
+    (signo ?s1)
+    (signo ?s2)
+    (sintoma ?st1)
+    (sintoma ?st2)
+    (test (member$ ?s1 (create$ sequedad)))
+    (test (member$ ?s2 (create$ fiebre)))
+    (test (member$ ?st1 (create$ voz_ronca)))
+    (test (member$ ?st2 (create$ dolores_musculares)))
+    =>
+    (printout t "El paciente podría tener faringitis." crlf)
+)
+
+(defrule diagnosticar-gastritis
+    (signo ?s1)
+    (signo ?s2)
+    (sintoma ?st1)
+    (sintoma ?st2)
+    (test (member$ ?s1 (create$ nauseas)))
+    (test (member$ ?s2 (create$ vomitos)))
+    (test (member$ ?st1 (create$ malestar_al_comer)))
+    (test (member$ ?st2 (create$ dolor_en_el_abdomen)))
+    =>
+    (printout t "El paciente podría tener gastritis." crlf)
+)
+
+(defrule diagnosticar-sinusitis
+    (signo ?s1)
+    (signo ?s2)
+    (sintoma ?st1)
+    (sintoma ?st2)
+    (test (member$ ?s1 (create$ moqueo)))
+    (test (member$ ?s2 (create$ congestion_nasal)))
+    (test (member$ ?st1 (create$ dolor_o_presion_en_la_cara)))
+    (test (member$ ?st2 (create$ dolor_de_cabeza)))
+    =>
+    (printout t "El paciente podría tener sinusitis." crlf)
+)
+
+(defrule diagnosticar-tuberculosis
+    (signo ?s1)
+    (signo ?s2)
+    (sintoma ?st1)
+    (sintoma ?st2)
+    (test (member$ ?s1 (create$ fatiga)))
+    (test (member$ ?s2 (create$ fiebre)))
+    (test (member$ ?st1 (create$ dolor_al_toser)))
+    (test (member$ ?st2 (create$ tos_con_sangre)))
+    =>
+    (printout t "El paciente podría tener tuberculosis." crlf)
+)
+
+(defrule diagnosticar-desconocido
+    (not (diagnosticar-gripe))
+    (not (diagnosticar-alergia))
+    (not (diagnosticar-faringitis))
+    (not (diagnosticar-gastritis))
+    (not (diagnosticar-sinusitis))
+    (not (diagnosticar-tuberculosis))
+    =>
+    (printout t "No se encontró ninguna enfermedad conocida." crlf)
+)
+
+// Carga el texto anterior si esta en un archivo clp
+(load "desicion.clp")
+
+// Assert Facts
+(assert (signo fatiga))
+(assert (signo fiebre))
+(assert (sintoma dolor_al_toser))
+(assert (sintoma tos_con_sangre))

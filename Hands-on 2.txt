@@ -1,0 +1,18 @@
+(deftemplate enfermedad    (slot nombre)    (multislot signo)    (multislot sintoma) )
+
+(assert (enfermedad (nombre gripe) (signo fiebre fatiga)(sintoma escalofrios tos))) 
+
+(assert (enfermedad (nombre alergia) (signo congestion_nasal estornudos)(sintoma dificultad_respiratoria erojecimiento_ocular)))
+
+(assert (enfermedad (nombre faringitis) (signo sequedad fiebre)(sintoma voz_ronca dolores_musculares)))
+
+(assert (enfermedad (nombre gastritis) (signo nauseas vomitos)(sintoma malestar_al_comer dolor_en_el_abdomen)))
+
+(assert (enfermedad (nombre sinusitis) (signo moqueo congestion_nasal)(sintoma dolor_o_presion_en_la_cara dolor_de_cabeza)))
+
+(assert (enfermedad (nombre tuberculosis) (signo fatiga fiebre)(sintoma dolor_al_toser tos_con_sangre))) 
+
+(defrule enfermedades(enfermedad (nombre ?en) (signo ?s1 ?s2) (sintoma ?st1 ?st2)) => (printout t "Enfermedad: "?en crlf)(printout t "Signos: "?s1 ", " ?s2 crlf)(printout t "Sintomas: "?st1 ", " ?st2 crlf)) 
+
+(defrule eliminar-enfermedad  => (printout t "Ingrese el id de la enfermedad a eliminar: ") (bind ?id (read)) (retract ?id) (printout t "Enfermedad " ?id " eliminada." crlf))
+
